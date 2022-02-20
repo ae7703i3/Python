@@ -1,0 +1,34 @@
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.style.use('ggplot')
+#%matplotlib inline
+
+norm_rv  = stats.norm(loc=0, scale=1)
+sample = norm_rv.rvs(size=50)
+
+print(sample[:10])
+
+x = np.linspace(-3, 3, 100)
+pdf = norm_rv.pdf(x)
+cdf = norm_rv.cdf(x)
+norm_rv.pdf(1)
+plt.plot(x, pdf)
+plt.plot(x, cdf)
+plt.ylabel('$f(x)$')
+plt.xlabel('$x$')
+
+print(norm_rv.cdf(1))
+print(norm_rv.cdf(0))
+print(1-norm_rv.cdf(2))
+print(norm_rv.cdf(-3))
+
+plt.scatter([1,1,-3], [norm_rv.pdf(1), norm_rv.cdf(1), norm_rv.pdf(-3)], color='blue')
+xq = np.linspace(-3, 1)
+yq = norm_rv.pdf(xq)
+plt.fill_between(xq, 0, yq, color ='blue', alpha = 0.2)
+plt.show()
